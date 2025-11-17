@@ -1,16 +1,11 @@
-// This module registers socket.io 
-// event handlers and holds in-memory stores for demo.
-
-socket.on('message:read', ({ room, messageId }) => {
-  const user = users[socket.id];
-  if (!user) return;
-  const list = messages[room] || [];
-  const m = list.find(x => x.id === messageId);
-  if (!m) return;
-  m.readBy = m.readBy || [];
-  if (!m.readBy.includes(user.username)) m.readBy.push(user.username);
-  io.to(room).emit('message:update', m);
-});
+// This module registers socket.io event handlers and holds in-memory stores for demo.
+if (!user) return;
+const list = messages[room] || [];
+const m = list.find(x => x.id === messageId);
+if (!m) return;
+m.readBy = m.readBy || [];
+if (!m.readBy.includes(user.username)) m.readBy.push(user.username);
+io.to(room).emit('message:update', m);
 
 
 socket.on('typing', ({ room, isTyping }) => {
